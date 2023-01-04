@@ -39,5 +39,15 @@ Message Driven: Comunicación non-blocking & async entre sistemas. Se aplica el 
 
 
 
+SECCIÓN 3: Spring WebFlux
+*************************
+
+Spring Web corre en Servlet container(async y blocking)
+Spring Web Reactive corre en Servlet 3.1, Netty, Undertow
+
+Netty se basa en Thread Groups y tiene un "boss" y otros workers
+que son los que procesan las operaciones I/O
+
+
 
 
