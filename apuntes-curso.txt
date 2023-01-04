@@ -1,0 +1,43 @@
+
+SECCIÓN 1:
+*********
+
+Necesidad de WebFlux:
+
+En arquitecturas tradicionales, incluso en microservicios, se ve que se crean múltiples threads
+para procesar las peticiones I/O. Sin embargo, estos threads quedan en un estado de "waiting" mientras
+esperan la respuesta a los request que han sido enviados. Esto implica un uso de memoria ram muy alto
+y recursos desperdiciados en ese "tiempo de espera del response" por una falta de "multitasking".
+
+En el stack reactivo se introduce el término "non-blocking", quiere decir que los threads pueden procesar
+una mayor cantidad de requests porque no esperan el response por cada petición. A diferencia de la 
+arquitectura tradicional, los threads que están "libres" pueden seguir procesando requests y cuando 
+llegue el response lo procesan en paralelo.
+
+
+Reactive Manifesto -> Reactive Systems
+
+Maintainable    Extensible
+
+        Responsive
+            |
+  Elastic ----- Resilient
+            |
+        Message Driven
+
+Responsive: Responder rápido y realizar el trabajo mientras el usuario lo requiera.
+            Por ejemplo si el usuario ya cerró el browser el backend no debería seguir procesando.
+
+Resilient: Permanecer responsive a pesar de los fallos. No tiene que caerse todo el sistema por una
+           funcionalidad caída.
+
+Elastic: El sistema escala automáticamente de acuerdo a la demanda.
+
+Message Driven: Comunicación non-blocking & async entre sistemas. Se aplica el concepto de 
+                Backpressure(si el sistema es lento para procesar los items recibidos se baja
+                la carga de emisión).
+
+
+
+
+
