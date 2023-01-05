@@ -49,5 +49,46 @@ Netty se basa en Thread Groups y tiene un "boss" y otros workers
 que son los que procesan las operaciones I/O
 
 
+webflux-demo
+
+(Videos 16 y 17)
+En la clase ReactiveMathController es clave el endpoint table/{input}/stream
+porque demuestra dos ventajas de la programacion reactiva:
+
+- Puede entregar el response apenas lo tenga
+- Una vez cancelada la subscripción desde el navegador ya no se ejecuta ningún 
+  proceso en el backend.
+
+El endpoint que no tiene produces = MediaType.TEXT_EVENT_STREAM_VALUE toma un 
+comportamiento por defecto que es realizar un collect de todos los elementos
+y transformarlos a json para luego retornarlos. Esto se da por una lógica en
+la clase AbstractJackson2Encoder.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
