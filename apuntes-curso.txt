@@ -66,10 +66,17 @@ la clase AbstractJackson2Encoder.
 
 
 
+SECCIÓN 4: Functional Endpoints
+*******************************
 
-
-
-
+Router Config: Para tener los endpoints de una manera funcional
+Router Handler: El método que se ejecuta cuando el path funcional es invocado
+Streaming Endpoint: tableStreamHandler para que el backend deje de procesar si se cancela la petición 
+Functional Endpoints: GET, POST
+Exception Handling: Método que maneja las excepciones
+Path Based Routing Config: Es como el RequestMapping inicial en el mvc tradicional
+Request Predicates: Complementa el RouterFunction con cierta lógica
+Assignment: Se usó el manejo de headers
 
 
 
