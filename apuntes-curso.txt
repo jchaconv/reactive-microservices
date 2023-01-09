@@ -79,6 +79,28 @@ Request Predicates: Complementa el RouterFunction con cierta lógica
 Assignment: Se usó el manejo de headers
 
 
+SECCIÓN 5: Webclient
+********************
+
+Es un Reactive RestTemplate para hacer peticiones HTTP
+
+StepVerifier: Library Test
+- GET Mono
+- GET Flux
+- GET Flux Streaming Endpoint (Stream emite cuando el item está listo)
+- POST request
+- String Request Header
+- Handling Bad Request
+- Exchange vs Retrieve --- exchange = retrieve + additional info(http status code)
+- Query Params -- Se vieron tres maneras diferentes de hacerlo
+- Setting Auth Token -- Se añadió código en WebClientConfig y en el test de Lec04HeadersTest
+- Atrributes -- se usó para setear a different type of credentials at runtime.
+  Para probar se debe activar sessionAttrToken en WebClientConfig.
+- Assignment: Se usó doble flatmap para enviar valores
+
+
+
+
 
 
 
