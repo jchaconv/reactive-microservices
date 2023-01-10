@@ -2,6 +2,8 @@
 SECCIÓN 1:
 *********
 
+Repo del proyecto: https://github.com/vinsguru/spring-webflux-course
+
 Necesidad de WebFlux:
 
 En arquitecturas tradicionales, incluso en microservicios, se ve que se crean múltiples threads
@@ -97,6 +99,47 @@ StepVerifier: Library Test
 - Atrributes -- se usó para setear a different type of credentials at runtime.
   Para probar se debe activar sessionAttrToken en WebClientConfig.
 - Assignment: Se usó doble flatmap para enviar valores
+
+
+SECCIÓN 6: Spring Data Reactive - MongoDB
+*****************************************
+
+Se creó el product-service con las dependencias de maven:
+- spring reactive web
+- spring data reactive mongodb
+- embedded mongodb database (testing) (comentar el scope test)
+- lombok
+Se agregó <version>${project.parent.version}</version> en el plugin para evitar el error:
+"Plugin 'org.springframework.boot:spring-boot-maven-plugin:' not found"
+
+- BeanUtils.copyProperties para transformar objetos con las propiedades
+- Revisar doc sobre mappers & performance: 
+  https://www.vinsguru.com/microservices-dto-to-entity-entity-to-dto-mapping-libraries-comparison/
+
+- Se creó una instancia de docker con el comando: docker run -p 27017:27017 -d mongo
+
+(De esta segunda forma sale error)
+También se puede crear con el docker-compose.yml y el comando: docker-compose up
+
+version: "3"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo:/data/db  
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+
+
+Y para acceder al express server ir a localhost:8081
+
+
+- Se comentó una dependencia de test en pom para que no se conecte a la bd en un ambiente de test.
+Sin embargo, a mi eso nunca me funcionó y me conectaba a docker directamente.
 
 
 
