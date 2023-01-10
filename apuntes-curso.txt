@@ -143,7 +143,17 @@ Sin embargo, a mi eso nunca me funcionó y me conectaba a docker directamente.
 
 
 
+SECCIÓN 7: Spring Data R2DBC
+****************************
 
+Documentación:
+https://docs.spring.io/spring-data/r2dbc/docs/current/reference/html/#reference
+
+Se creó el user-service con las dependencias de maven:
+- spring reactive web
+- spring data r2dbc
+- h2
+- lombok
 
 
 
