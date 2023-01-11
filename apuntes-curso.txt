@@ -155,9 +155,124 @@ Se creó el user-service con las dependencias de maven:
 - h2
 - lombok
 
+- Se usar org.springframework.data.relational.core.mapping.Table en lugar de Entity(JPA) para mapear la entidad(tabla).
+
+- Se agregó query en el repository
+
+- Doc sobre Transaction Management: https://www.vinsguru.com/spring-data-r2dbc-transaction/
+
+- Drivers R2DBC: https://docs.spring.io/spring-data/r2dbc/docs/current/reference/html/#r2dbc.drivers
+
+- Se agregó "on delete cascade" en el init.sql para que se pudiera borrar el registro luego de haber interactuado en la
+  tabla de transactions. También se puede comentar la línea del foreign key para mantener un historial de las transacciones.
 
 
+- Docker compose file para crear postgre db. El comando es: docker-compose up
 
+version: "3"
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=vinsguru
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=userdb
+    volumes:
+      - ./docker-volume/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@vinsguru.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - ./docker-volume/pgadmin:/var/lib/pgadmin
+    ports:
+      - 9000:80
+
+  Al intentar crear se obtuvo el error: "Error response from daemon: user declined directory sharing ..."
+  Para solucionarlo se hizo lo sgte: "Go to docker dashboard -> settings ->Resources -> FileSharing. 
+  Add required folder and hit Apply & Restart" (funcionó)
+
+  Ir a http://localhost:9000/ para consola de pgadmin(si me funcionó)
+  Darle en register server -> name: userdb, hostname: postgres, username: vinsguru, password: admin
+
+  Salió otro error en el que no se podía levantar la imagen de postgre por eso no se podía dar la conexión
+  correctamente. Para ello se ejecutó: docker volume create db_volume y se modificó el yml
+  Funcionó bien, se pudo levantar el container de postgre y crear el server en pgadmin
+
+  Nuevo docker-compose.yml:
+
+  version: "3"
+  services:
+    postgres:
+      image: postgres
+      container_name: postgres
+      environment:
+        - POSTGRES_USER=vinsguru
+        - POSTGRES_PASSWORD=admin
+        - POSTGRES_DB=userdb
+      volumes:
+        - db_volume:/var/lib/postgresql/data
+      ports:
+        - 5432:5432
+    pgadmin:
+      image: dpage/pgadmin4
+      container_name: pgadmin
+      environment:
+        - PGADMIN_DEFAULT_EMAIL=admin@vinsguru.com
+        - PGADMIN_DEFAULT_PASSWORD=admin
+      volumes:
+        - ./docker-volume/pgadmin:/var/lib/pgadmin
+      ports:
+        - 9000:80
+  volumes:
+    db_volume:
+      external: true
+
+  Ejecutar el siguiente script en query tools:
+
+
+  CREATE TABLE USERS (
+    id serial primary key,
+    name varchar(50),
+    balance int
+  );
+
+  CREATE TABLE USER_TRANSACTION (
+    id serial primary key,
+    user_id bigint,
+    amount int,
+    transaction_date timestamp,
+    CONSTRAINT fk_user_id
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        on delete cascade
+  );
+
+  Modificar el properties y comentar el @Service de DataSetupService
+  Probar en postman los servicios y validar en el pgadmin la data creada(funcionó OK)
+
+- para cambiar a postgre se deben comentar las dependencias de h2 y en el spring initializr
+  agregar dependencias de R2DBC y postgre driver con explore para copiar las dependencias.
+
+
+  <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>r2dbc-postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+Al final se usó el comando: git update-index --assume-unchanged
+para no subir el volumedb creado por docker
 
 
 

@@ -1,12 +1,26 @@
 version: "3"
 services:
-  mongo:
-    image: mongo
-    ports:
-      - 27017:27017
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=vinsguru
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=userdb
     volumes:
-      - ./mongo:/data/db  
-  mongo-express:
-    image: mongo-express
+      - db_volume:/var/lib/postgresql/data
     ports:
-      - 8081:8081
+      - 5432:5432
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@vinsguru.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - ./docker-volume/pgadmin:/var/lib/pgadmin
+    ports:
+      - 9000:80
+volumes:
+  db_volume:
+    external: true
