@@ -271,8 +271,10 @@ services:
       <scope>runtime</scope>
     </dependency>
 
-Al final se usó el comando: git update-index --assume-unchanged
-para no subir el volumedb creado por docker
+Al final se usó el comando: git update-index --assume-unchanged docker-volume/
+para no subir el volumedb creado por docker(no funcionó, se subieron los cambios)
+
+Se usó git rm docker-volume -r (funcionó correctamente)
 
 
 
