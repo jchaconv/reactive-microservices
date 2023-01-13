@@ -109,6 +109,9 @@ Se creó el product-service con las dependencias de maven:
 - spring data reactive mongodb
 - embedded mongodb database (testing) (comentar el scope test)
 - lombok
+
+File->New->Module from existing source
+
 Se agregó <version>${project.parent.version}</version> en el plugin para evitar el error:
 "Plugin 'org.springframework.boot:spring-boot-maven-plugin:' not found"
 
@@ -276,11 +279,36 @@ para no subir el volumedb creado por docker(no funcionó, se subieron los cambio
 
 Se usó git rm docker-volume -r (funcionó correctamente)
 
+SECCIÓN 8: Reactive Microservices
+*********************************
+
+-Se creó el order-service con las dependencias de maven:
+Spring Reactive Web, H2, JPA, Lombok
+
+-Se copiaron los dto's de los otros dos microservicios
+
+-Documentación Dto's in microservices:
+https://www.vinsguru.com/microservices-architecture-how-to-share-dto-data-transfer-objects/
+
+- Se hicieron las conexiones a otros microservicios con webclient. Las pruebas salieron bien.
+
+[RESILIENT]
+- Handling service unavailability. Se añadieron excepciones para cuando se envía un request incorrecto
+y cuando el servicio no está disponible.
+
+- Se simuló una intermitencia con product-service(en el controller productById) y en postman retorna bad request. 
+Se agregó retryWhen en OrderFullfilmentService. Las pruebas salieron bien en postman. Se ve que se demora un poco más
+cuando detecta la intermitencia pero al final responde bien. 
 
 
+Resilient Design Patterns:
 
+https://www.vinsguru.com/timeout-pattern/
+https://www.vinsguru.com/retry-pattern/
+https://www.vinsguru.com/circuit-breaker-pattern/
+https://www.vinsguru.com/bulkhead-pattern/
 
-
+- Se hizo un test haciendo un match de usuarios con productos con Flux.zip, salió bien.
 
 
 

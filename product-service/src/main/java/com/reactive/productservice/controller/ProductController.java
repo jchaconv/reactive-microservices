@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @RestController
 @RequestMapping("product")
 public class ProductController {
@@ -22,6 +24,7 @@ public class ProductController {
 
     @GetMapping("{id}")
     public Mono<ResponseEntity<ProductDto>> getProductById(@PathVariable String id) {
+        simulateRandomException();
         return service.getProductById(id)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
@@ -50,6 +53,12 @@ public class ProductController {
     @DeleteMapping("{id}")
     public Mono<Void> deleteProduct(@PathVariable String id) {
         return service.deleteProduct(id);
+    }
+
+    private void simulateRandomException() {
+        int nextInt = ThreadLocalRandom.current().nextInt(1, 10);
+        if(nextInt > 5)
+            throw new RuntimeException("something is wrong");
     }
 
 }
