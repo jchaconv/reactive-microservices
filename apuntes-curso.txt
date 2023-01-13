@@ -312,6 +312,29 @@ https://www.vinsguru.com/bulkhead-pattern/
 
 
 
+SECCIÓN 9: Server Sent Events(SSE)
+**********************************
+
+- Se hicieron modificaciones en product-service. Se agregó SinkConfig y un nuevo controller.
+Se probó ingresando desde el browser a http://localhost:8091/product/stream y creamos nuevos productos
+desde postman y aparecen en el navegador:
+data:{"id":"63c18d659ab2496bf4b565f5","description":"Mouse gamer MSI","price":380}
+data:{"id":"63c18da69ab2496bf4b565f6","description":"Silla ergonómica negra","price":850}
+data:{"id":"63c18dcf9ab2496bf4b565f7","description":"Aro de luz de 80'","price":95}
+
+
+- Se creó un frontend a partir de estos recursos:
+
+https://getbootstrap.com/docs/4.3/getting-started/introduction/
+https://getbootstrap.com/docs/4.3/content/tables/
+https://getbootstrap.com/docs/4.3/components/forms/
+
+- Añadió una función que crea productos cada 2 seg en DataSetupService. Yo no lo tengo porque es data que se generar
+en una bd local. La prueba salió bien agregando productos desde postman y se reflejaron en el frontend.
+
+
+
+
 
 
 
