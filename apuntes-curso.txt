@@ -334,6 +334,26 @@ en una bd local. La prueba salió bien agregando productos desde postman y se re
 
 
 
+SECCIÓN 10: Unit/Integration Testing
+************************************
+
+
+- Se usa @AutoConfigureWebTestClient para crear el bean de WebTestClient y evitar errores con el @Autowired
+- Se usa Assertions.assertThat de la librería assertj para validar un valor exacto
+- Se usa @WebFluxTest para probar un controller. @MockBean para insertar el service que usa nuestro controller.
+  Luego Mockito.when para validar cuando el servicio retorna 25.
+- Se ve la importancia de usar mocks porque permite ver la validación de un valor exacto y el comportamiento cuando es vacío.
+  Se agregó un defaultIfEmpty en el controller para que retorne -1 en caso el service retorne vacío y se pueda probar en el test.
+- listResponse
+- streamingResponse: Se agregó contentTypeCompatibleWith para que reconociera el formato correcto de la respuesta.
+- passing parameters
+- post test: Se enviaron headers en el test
+- controller advice: Se trata de error handling y se usó jsonPath donde $ representa el json del response
+- router function
+- WebTestClient bind to server: solo se explicó la opción
+
+- Para integration tests: @SpringBootTest
+
 
 
 

@@ -21,7 +21,8 @@ public class ReactiveMathController {
 
     @GetMapping("square/{input}")
     public Mono<Response> findSquare(@PathVariable int input) {
-        return reactiveMathService.findSquare(input);
+        return reactiveMathService.findSquare(input)
+                .defaultIfEmpty(new Response(-1));
     }
 
     @GetMapping("table/{input}")

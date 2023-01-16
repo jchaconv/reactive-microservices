@@ -1,4 +1,4 @@
-package com.reactive.webfluxdemo;
+package com.reactive.webfluxdemo.webclient;
 
 import com.reactive.webfluxdemo.dto.Response;
 import org.junit.jupiter.api.Test;

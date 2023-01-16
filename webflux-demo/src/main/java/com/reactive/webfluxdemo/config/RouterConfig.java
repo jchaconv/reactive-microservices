@@ -17,7 +17,7 @@ public class RouterConfig {
     RequestHandler requestHandler;
 
     @Bean
-    RouterFunction<ServerResponse> highLevelRouter() {
+    public RouterFunction<ServerResponse> highLevelRouter() {
         return RouterFunctions.route()
                 .path("router", this::serverResponseRouterFunction)
                 .build();
